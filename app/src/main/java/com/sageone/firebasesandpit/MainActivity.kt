@@ -8,13 +8,9 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.Menu
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig
-import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
-
-    lateinit var firebaseRemoteConfig: FirebaseRemoteConfig
+class MainActivity : AppCompatActivity(), FirebaseRemoteConfigFragment.UpdateListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,22 +19,18 @@ class MainActivity : AppCompatActivity() {
         transactionsList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         transactionsList.adapter = TransactionsAdapter(this)
 
-        firebaseRemoteConfig = FirebaseRemoteConfig.getInstance()
-        firebaseRemoteConfig.setConfigSettings(FirebaseRemoteConfigSettings.Builder().setDeveloperModeEnabled(BuildConfig.DEBUG).build())
+
+        val firebaseRemoteConfigFragment = FirebaseRemoteConfigFragment()
+        firebaseRemoteConfigFragment.updateListener = this
+
+        supportFragmentManager.beginTransaction()
+                .add(firebaseRemoteConfigFragment, "FirebaseRemoteConfig")
+                .add(FirebaseAnalyticsFragment(), "FirebaseAnalytics")
+                .commit()
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        firebaseRemoteConfig.fetch(0).addOnCompleteListener(this) {
-            Log.d(TAG, "firebase remote config completion, success ${it.isSuccessful}")
-            if (it.isSuccessful) {
-                firebaseRemoteConfig.activateFetched()
-                val colorHexString = firebaseRemoteConfig.getString("themeColor")
-                val argb = java.lang.Long.parseLong(colorHexString, 16).toInt()
-                supportActionBar?.setBackgroundDrawable(ColorDrawable(argb))
-            }
-        }
+    override fun actionBarColorChanged(argb: Int) {
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(argb))
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
