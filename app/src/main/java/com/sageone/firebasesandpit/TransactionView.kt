@@ -1,22 +1,18 @@
 package com.sageone.firebasesandpit
 
 import android.content.Context
-import android.view.View
-import android.widget.FrameLayout
+import android.util.AttributeSet
+import android.widget.RelativeLayout
 import kotlinx.android.synthetic.main.transaction_row.view.*
-import java.text.NumberFormat
 
 /**
  * Item in the RecyclerView
  */
-class TransactionView(context: Context) : FrameLayout(context) {
+class TransactionView(context: Context, attributeSet: AttributeSet) : RelativeLayout(context, attributeSet) {
 
-    init {
-        View.inflate(context, R.layout.transaction_row, this)
-    }
-
-    fun setDetails(title: String, amount: Double) {
+    fun setDetails(title: String, amount: String, date: String) {
         this.title.text = title
-        this.amount.text = NumberFormat.getCurrencyInstance().format(amount)
+        this.amount.text = amount
+        this.date.text = date
     }
 }

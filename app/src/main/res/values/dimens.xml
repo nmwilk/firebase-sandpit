@@ -3,7 +3,9 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <dimen name="row_height">44dp</dimen>
+    <dimen name="row_height">60dp</dimen>
+    <dimen name="text_size">16sp</dimen>
+    <dimen name="date_text_size">14sp</dimen>
     <dimen name="cell_padding_vert">6dp</dimen>
     <dimen name="cell_padding_horz">10dp</dimen>
 </resources>

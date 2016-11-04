@@ -2,6 +2,7 @@ package com.sageone.firebasesandpit
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
@@ -9,12 +10,15 @@ import android.text.TextWatcher
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_new_transaction.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Screen to enter a new transaction.
  */
 class NewTransactionActivity : AppCompatActivity() {
     private var saveButton: MenuItem? = null
+    private val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,9 +26,15 @@ class NewTransactionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_new_transaction)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(SharedPrefs(this).getToolbarColor()))
 
         titleEntry.addTextChangedListener(TitleTextWatcher())
         amountEntry.addTextChangedListener(AmountTextWatcher())
+
+        supportFragmentManager.beginTransaction()
+                .add(FirebaseAnalyticsFragment(), "FirebaseAnalytics")
+                .add(FirebaseRemoteConfigFragment(), "FirebaseRemoteConfig")
+                .commit()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -38,7 +48,7 @@ class NewTransactionActivity : AppCompatActivity() {
     }
 
     private fun saveTransaction(): Boolean {
-        val transaction = Transaction(titleEntry.text.toString(), amountEntry.text.toString())
+        val transaction = Transaction(titleEntry.text.toString(), amountEntry.text.toString(), dateFormat.format(Date()))
         setResult(Activity.RESULT_OK, transaction.fillIntent(Intent()))
         finish()
         return true
@@ -84,3 +94,4 @@ class NewTransactionActivity : AppCompatActivity() {
         }
     }
 }
+
