@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">FirebaseSandpit</string>
+    <string name="add">Add</string>
+    <string name="done">Done</string>
+
+    <string name="title_hint">title</string>
+    <string name="amount_hint">amount</string>
+</resources>
