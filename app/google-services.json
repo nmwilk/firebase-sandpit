@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "618479608733",
+    "firebase_url": "https://transactions-1cffb.firebaseio.com",
+    "project_id": "transactions-1cffb",
+    "storage_bucket": "transactions-1cffb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:618479608733:android:1079ca94ff384983",
+        "android_client_info": {
+          "package_name": "com.sageone.firebasesandpit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "618479608733-aetjnk9m6c8qmecn4g7vbe4dt6ln6sdm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYUN93JjiKI-aVyve9uf6ZdtZRh4W6wd4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
